@@ -11,8 +11,8 @@ class QuotesSpider(scrapy.Spider):
         return "https://www150.statcan.gc.ca/n1/en/type/data?count=100&p=" + str(page) + "-All#all"
 
     def start_requests(self):
-        max_page = 116
-        for page in range(1, max_page + 1):
+        max_page = 115
+        for page in range(0, max_page + 1):
             url = self.build_url(page)
             print("Start parsing: " + url)
             yield scrapy.Request(url=url, callback=self.parse)
@@ -31,7 +31,10 @@ class QuotesSpider(scrapy.Spider):
         url = soup.select_one("div.ndm-result-title a")["href"]
         type = soup.select_one("div.ndm-result-productid span").text.strip()
         product_id = soup.select_one("div.ndm-result-productid").contents[1].text.strip()
-        freq = soup.select_one("div.ndm-result-freq").contents[1].text.strip()
+
+        freq = ''
+        if(soup.select_one("div.ndm-result-freq") != None):
+            freq = soup.select_one("div.ndm-result-freq").contents[1].text.strip()
 
         # Extract the description (handle the case when description is missing)
         description = soup.select_one('div.ndm-result-description').contents[1].text.strip()
