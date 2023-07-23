@@ -8,7 +8,7 @@
             "name": "Python: Run Scrapy",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/scrappy/main.py",
+            "program": "${workspaceFolder}/scrapy/main.py",
             "console": "integratedTerminal"
         },
     ]
